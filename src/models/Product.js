@@ -23,11 +23,12 @@ const ProductSchema = new mongoose.Schema({
 
     productImage: {
         type: String
-    }
+    },
 
     username: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }
 
 });
