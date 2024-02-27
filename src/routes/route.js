@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/userController/index');
+const LoginController = require('../controllers/login/index');
 
 // Rotas
 
@@ -8,11 +9,11 @@ router.get('/', (req, res) => {
     res.send('Olá!');
 });
 
+// Rotas de usuário
 router.post('/users', UserController.createUser);
 router.get('/users', UserController.getAllUsers);
 router.get('/users/:user_id', UserController.getUserById);
-
-router.post('/login');
+router.post('/login', LoginController.createSession);
 
 router.post('/products/:user_id');
 router.get('/products/user_id');
