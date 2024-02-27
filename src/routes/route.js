@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const UserController = require('../controllers/userController/index');
+
+// Rotas
 
 router.get('/', (req, res) => {
     res.send('Olá!');
 });
 
-router.post('/users');
-router.get('/users');
-
-router.get('/users/:user_id');
+router.post('/users', UserController.createUser);
+router.get('/users', UserController.getAllUsers);
+router.get('/users/:user_id', UserController.getUserById);
 
 router.post('/login');
 
