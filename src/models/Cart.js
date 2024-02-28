@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const CartSchema = new mongoose.Schema({
     // O carrinho deve conter um ou mais produtos, por isso uma array em products
-    products: {
-        [
+    products: [
+        {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Product'
-        ]
-    },
+        }
+    ],
 
     username: {
         type: mongoose.Schema.Types.ObjectId,
@@ -15,18 +15,20 @@ const CartSchema = new mongoose.Schema({
     },
 
     address: {
-        type: String,
-        required: true
-    },
+        street: {
+            type: String,
+            required: true
+        },
 
-    number: {
-        type: Number,
-        required: true
-    },
+        number: {
+            type: String,
+            required: true
+        },
 
-    city: {
-        type: String,
-        required: true
+        city: {
+            type: String,
+            required: true
+        }
     },
 
     payment: {

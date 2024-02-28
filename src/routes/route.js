@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/userController/index');
 const ProductController = require('../controllers/productController/index');
+const CartController = require('../controllers/cartController/index');
 const LoginController = require('../controllers/login/index');
 
 // Rotas
@@ -25,10 +26,9 @@ router.delete('/products/:user_id/:product_id', ProductController.deleteProduct)
 router.get('/products', ProductController.getProducts);
 router.get('/products/:product_id', ProductController.getProductById);
 
-
-router.post('/cart/:user_id');
-router.get('/cart/:user_id')
-
-router.get('/cart/:user_id/:Cart_id');
+// Rotas cart
+router.post('/carts/:user_id', CartController.createCart);
+router.get('/carts/:user_id', CartController.getUserCarts);
+router.get('/carts/:user_id/:Cart_id', CartController.getCart);
 
 module.exports = router;
