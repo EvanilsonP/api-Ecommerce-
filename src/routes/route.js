@@ -4,9 +4,9 @@ const UserController = require('../controllers/userController/index');
 const ProductController = require('../controllers/productController/index');
 const CartController = require('../controllers/cartController/index');
 const LoginController = require('../controllers/login/index');
+const { authenticate } = require('../middlewares/index');
 
-// Rotas
-
+// Rota Home Page
 router.get('/', (req, res) => {
     res.send('Olá!');
 });
@@ -18,17 +18,17 @@ router.get('/users/:user_id', UserController.getUserById);
 router.post('/login', LoginController.createSession);
 
 // Rotas de produtos
-router.post('/products/:user_id', ProductController.createProduct);
+router.post('/products/:user_id', authenticate, ProductController.createProduct);
 router.get('/:user_id/products', ProductController.getUserProducts);
-router.patch('/products/:user_id/:product_id', ProductController.updateProduct);
-router.delete('/products/:user_id/:product_id', ProductController.deleteProduct);
+router.patch('/products/:user_id/:product_id', authenticate,ProductController.updateProduct);
+router.delete('/products/:user_id/:product_id', authenticate, ProductController.deleteProduct);
 
 router.get('/products', ProductController.getProducts);
 router.get('/products/:product_id', ProductController.getProductById);
 
 // Rotas cart
-router.post('/carts/:user_id', CartController.createCart);
-router.get('/carts/:user_id', CartController.getUserCarts);
-router.get('/carts/:user_id/:cart_id', CartController.getCart);
+router.post('/carts/:user_id', authenticate, CartController.createCart);
+router.get('/carts/:user_id', authenticate, CartController.getUserCarts);
+router.get('/carts/:user_id/:cart_id', authenticate, CartController.getCart);
 
 module.exports = router;
