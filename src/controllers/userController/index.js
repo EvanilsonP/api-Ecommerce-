@@ -44,8 +44,10 @@ const UserController = {
 
     // Listar um usuário especifíco por ID
     async getUserById(req, res) {
-        const { user_id } = req.params;
+
         try {
+            const { user_id } = req.params;
+            // Pega o ID de um usuário em especifico
             const user = await User.findById(user_id);
             return res.status(200).json(user);
         } 

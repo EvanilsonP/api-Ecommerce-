@@ -11,7 +11,16 @@ const Middleware = {
 
         // Em caso de sucesso
         next();
+    },
+    // middleware que faz com que o usuário forneça um ID de usuário válido ao listar um usuário por ID
+    checkUserId(req, res, next) {
+        const { user_id } = req.params.user_id;
+
+        if(!user_id) return res.status(400).json({ error: 'Você precisa fornecer um ID de usuário válido.' });
+        req.user_id = user_id;
+        next();
     }
 };
+
 
 module.exports = Middleware;

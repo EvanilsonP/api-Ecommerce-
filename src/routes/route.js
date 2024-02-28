@@ -4,7 +4,7 @@ const UserController = require('../controllers/userController/index');
 const ProductController = require('../controllers/productController/index');
 const CartController = require('../controllers/cartController/index');
 const LoginController = require('../controllers/login/index');
-const { authenticate } = require('../middlewares/index');
+const { authenticate, checkUserId } = require('../middlewares/index');
 
 // Rota Home Page
 router.get('/', (req, res) => {
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 // Rotas de usuário
 router.post('/users', UserController.createUser);
 router.get('/users', UserController.getAllUsers);
-router.get('/users/:user_id', UserController.getUserById);
+router.get('/user/:user_id', checkUserId, UserController.getUserById);
 router.post('/login', LoginController.createSession);
 
 // Rotas de produtos
