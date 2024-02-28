@@ -1,16 +1,34 @@
 const User = require('../../models/User');
+const bcrypt = require('bcrypt');
 
 const UserController = {
     // Cadastrar usuário
     async createUser(req, res) {
-        const bodyData = req.body;
-        try {
-            const newUser = await User.create(bodyData);
-            return res.status(201).json(newUser);
-        } 
-        catch (error) {
-            return res.status(400).json(error);
+
+       try {
+         const { username, password } = req.body;
+         const hashedPassword = await bcrypt.hash(password, 10);  
+         
+        // Verifica se já há algum usuário cadastrado com o nome fornecido e se o usuário preencheu os campos obrigatórios
+        const existingUser = await User.findOne({ username });   
+        
+        if(existingUser) {
+            return res.status(400).json({ message: 'Nome de usuário já cadastrado. '});
+
+        } else if(username === '' || password === '') {
+            return res.status(400).json({ message: 'Preencha todos os campos obrigatórios.'});
+            
+        } else {
+            const user = await User.create({ username, password: hashedPassword});
+            return res.status(201).json({ message: 'Usuário cadastrado', user});
         }
+
+       } 
+
+       catch (error) {
+            res.status(400).json({error});
+       }
+
     },
 
     // Listar usuários
