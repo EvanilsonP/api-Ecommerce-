@@ -21,7 +21,7 @@ const CartController = {
         const { user_id } = req.params;
 
         try {
-            const userCarts = await Cart.find({ username: user_id });
+            const userCarts = await Cart.find({ username: user_id }).populate('products'); // Populate mostra as informações dos produtos listados no cart pelo usuário. Sem populate teremos apena os ID's dos produtos
             return res.status(200).json(userCarts);
         } 
 
@@ -31,9 +31,11 @@ const CartController = {
     },
 
     async getCart(req, res) {
+        const { user_id, cart_id } = req.params;
 
         try {
-            
+            const cart = await Cart.findById(cart_id).populate('products');
+            res.status(200).json(cart);
         } 
 
         catch (error) {

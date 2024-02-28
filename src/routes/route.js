@@ -29,6 +29,6 @@ router.get('/products/:product_id', ProductController.getProductById);
 // Rotas cart
 router.post('/carts/:user_id', CartController.createCart);
 router.get('/carts/:user_id', CartController.getUserCarts);
-router.get('/carts/:user_id/:Cart_id', CartController.getCart);
+router.get('/carts/:user_id/:cart_id', CartController.getCart);
 
 module.exports = router;
